@@ -13,7 +13,7 @@ class Student:
                 if course in lecturer.grades:
                     lecturer.grades[course].append(grade)
                 else:
-                    lecturer.grades = {course: [grade]}
+                    lecturer.grades.setdefault(course, [grade])
             else:
                 print(f"{grade} - для оценки введите число от 1 до 10")
         else:
@@ -50,7 +50,7 @@ class Reviewer(Mentor):
             if course in student.grades:
                 student.grades[course].append(grade)
             else:
-                student.grades[course] = [grade]
+                student.grades.setdefault(course, [grade])
         else:
             print(f"{grade} - для оценки введите число от 1 до 10")
 
@@ -58,9 +58,10 @@ class Reviewer(Mentor):
 student_oleg = Student('Oleg', 'Olegov', 'Male')
 reviewer_ivan = Reviewer('Ivan', 'Ivanov')
 reviewer_ivan.grading(student_oleg,'Git', 7)
+reviewer_ivan.grading(student_oleg,'Python', 8)
+reviewer_ivan.grading(student_oleg,'Git', 9)
 
 print(student_oleg.grades)
-
 
 lecturer_ruslan = Lecturer('Ruslan', 'Ruslanov')
 lecturer_ruslan.courses_attached.append('PHP')
