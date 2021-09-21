@@ -10,8 +10,8 @@ class Student:
     def grading_lecturer(self, lecturer, course, grade):
         if course in self.courses_in_progress and course in lecturer.courses_attached:
             if int(grade) >= 1 and int(grade) <= 10:
-                if hasattr(lecturer, 'grades'):
-                    lecturer.grades[course] += [grade]
+                if course in lecturer.grades:
+                    lecturer.grades[course].append(grade)
                 else:
                     lecturer.grades = {course: [grade]}
             else:
@@ -39,6 +39,7 @@ class Mentor:
 class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name,surname)
+        self.grades = {}
 
 class Reviewer(Mentor):
     def __init__(self, name, surname):
@@ -70,5 +71,7 @@ student_oleg.courses_in_progress.append('Git')
 student_oleg.courses_in_progress.append('Python')
 student_oleg.grading_lecturer(lecturer_ruslan, 'Git', 8)
 student_oleg.grading_lecturer(lecturer_ruslan, 'Git', 9)
+student_oleg.grading_lecturer(lecturer_ruslan, 'Python', 8)
+student_oleg.grading_lecturer(lecturer_ruslan, 'Python', 9)
 
 print(lecturer_ruslan.grades)
